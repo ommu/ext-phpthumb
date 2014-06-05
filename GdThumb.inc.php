@@ -109,6 +109,7 @@ class GdThumb extends ThumbBase
 				break;
 			case 'JPG':
 				$this->oldImage = imagecreatefromjpeg($this->fileName);
+				$this->fixRotation($fileName);
 				break;
 			case 'PNG':
 				$this->oldImage = imagecreatefrompng($this->fileName);
@@ -128,6 +129,94 @@ class GdThumb extends ThumbBase
 		
 		// TODO: Port gatherImageMeta to a separate function that can be called to extract exif data
 	}
+
+	/**
+	*
+	* Fix Rotation of JPEG Images taking into account EXIF data
+	* 
+	* @param string $fileName filename of the image
+	* @return bool
+	*/
+	private function fixRotation($fileName)
+	{
+		// Read the exif data
+		$exif = exif_read_data($fileName);
+
+		// gets the orientation
+		$ort = $exif['Orientation'];
+
+		//determine what orientation the image was taken at
+		switch ($ort)
+		{
+			case 2: // horizontal flip
+				$this->ImageFlip($this->oldImage);
+				break;
+			case 3: // 180 rotate left
+				$this->oldImage = imagerotate($this->oldImage, 180, -1);
+				break;
+			case 4: // vertical flip
+				$this->ImageFlip($this->oldImage);
+				break;
+			case 5: // vertical flip + 90 rotate right
+				$this->ImageFlip($this->oldImage);
+				$this->oldImage = imagerotate($this->oldImage, -90, -1);
+				break;
+			case 6: // 90 rotate right
+				$this->oldImage = imagerotate($this->oldImage, -90, -1);
+				break;
+			case 7: // horizontal flip + 90 rotate right
+				$this->ImageFlip($this->oldImage);
+				$this->oldImage = imagerotate($this->oldImage, -90, -1);
+				break;
+			case 8: // 90 rotate left
+				$this->oldImage = imagerotate($this->oldImage, 90, -1);
+				break;
+		}
+	}
+
+	/**
+	 * Rotate the image 90 degrees clockwise + flip vertical
+	 * 
+	 * @param GDimage $image image to be flipped
+	 * @return bool
+	 */
+
+	public function ImageFlip(&$image)
+	{
+		$width = imagesx($image);
+		$height = imagesy($image);
+
+		// Truecolor provides better results, if possible.
+		if (function_exists('imageistruecolor') && imageistruecolor($image))
+		{
+
+			$tmp = imagecreatetruecolor(1, $height);
+		} else
+        	{
+
+			$tmp = imagecreate(1, $height);
+		}
+
+		$x2 = $width - 1;
+
+		for ($i = (int) floor(($width - 1) / 2); $i >= 0; $i--)
+		{
+
+			// Backup right stripe.
+			imagecopy($tmp, $image, 0, 0, $x2 - $i, 0, 1, $height);
+
+			// Copy left stripe to the right.
+			imagecopy($image, $image, $x2 - $i, 0, $i, 0, 1, $height);
+
+			// Copy backuped right stripe to the left.
+			imagecopy($image, $tmp, $i, 0, 0, 0, 1, $height);
+		}
+
+		imagedestroy($tmp);
+
+		return true;
+	}
+
 	
 	/**
 	 * Class Destructor
