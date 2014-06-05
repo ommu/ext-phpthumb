@@ -139,16 +139,13 @@ class GdThumb extends ThumbBase
 	*/
 	private function fixRotation($fileName)
 	{
-		// Fix orientation
-		//fix photos taken on cameras that have incorrect
-		//dimensions
-
+		// Read the exif data
 		$exif = exif_read_data($fileName);
 
-		// get the orientation
+		// gets the orientation
 		$ort = $exif['Orientation'];
 
-		//determine what oreientation the image was taken at
+		//determine what orientation the image was taken at
 		switch ($ort)
 		{
 			case 2: // horizontal flip
@@ -178,7 +175,7 @@ class GdThumb extends ThumbBase
 	}
 
 	/**
-	 * Rotates the image 90 degrees clockwise and flips vertically
+	 * Rotate the image 90 degrees clockwise + flip vertical
 	 * 
 	 * @param GDimage $image image to be flipped
 	 * @return bool
