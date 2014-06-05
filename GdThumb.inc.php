@@ -133,9 +133,10 @@ class GdThumb extends ThumbBase
 	/**
 	*
 	* Fix Rotation of JPEG Images taking into account EXIF data
-	*
+	* 
+	* @param string $fileName filename of the image
+	* @return bool
 	*/
-	
 	private function fixRotation($fileName)
 	{
 		// Fix orientation
@@ -177,28 +178,16 @@ class GdThumb extends ThumbBase
 	}
 
 	/**
-	* 	ImageHandler - ImageFlip()
-	*
-	* 	Resizes an image to set width and height
-	*
-	* 	EXAMPLE USAGE:
-	*
-	* 	$ImageHandler->Resize(200, "file.jpg", "png", "images");
-	*
-	* 	@param	string		$image (image to flip)
-	* 	@param	int			$x
-	* 	@param	int			$y
-	* 	@param	int			$width
-	* 	@param	int			$height
-	*
-	*/
+	 * Rotates the image 90 degrees clockwise and flips vertically
+	 * 
+	 * @param GDimage $image image to be flipped
+	 * @return bool
+	 */
 
-	public function ImageFlip(&$image, $x = 0, $y = 0, $width = null, $height = null)
+	public function ImageFlip(&$image)
 	{
-		if ($width < 1)
-			$width = imagesx($image);
-		if ($height < 1)
-			$height = imagesy($image);
+		$width = imagesx($image);
+		$height = imagesy($image);
 
 		// Truecolor provides better results, if possible.
 		if (function_exists('imageistruecolor') && imageistruecolor($image))
@@ -211,19 +200,19 @@ class GdThumb extends ThumbBase
 			$tmp = imagecreate(1, $height);
 		}
 
-		$x2 = $x + $width - 1;
+		$x2 = $width - 1;
 
 		for ($i = (int) floor(($width - 1) / 2); $i >= 0; $i--)
 		{
 
 			// Backup right stripe.
-			imagecopy($tmp, $image, 0, 0, $x2 - $i, $y, 1, $height);
+			imagecopy($tmp, $image, 0, 0, $x2 - $i, 0, 1, $height);
 
 			// Copy left stripe to the right.
-			imagecopy($image, $image, $x2 - $i, $y, $x + $i, $y, 1, $height);
+			imagecopy($image, $image, $x2 - $i, 0, $i, 0, 1, $height);
 
 			// Copy backuped right stripe to the left.
-			imagecopy($image, $tmp, $x + $i, $y, 0, 0, 1, $height);
+			imagecopy($image, $tmp, $i, 0, 0, 0, 1, $height);
 		}
 
 		imagedestroy($tmp);
