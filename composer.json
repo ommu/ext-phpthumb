@@ -1,12 +1,41 @@
 {
-    "name": "deresh/thumb",
-    "description": "Thumbnail lib from http://phpthumb.gxdlabs.com/",
-    "license": "MIT",
-    "authors": [
-        {
+	"name": "ommu/phpthumb",
+	"description": "Google Analytic PHP Interface for Ommu Platform",
+	"keywords": [
+		"extension",
+		"phpthumb",
+		"ommu",
+		"platform",
+		"ommu platform"
+	],
+	"homepage": "https://github.com/ommu/phpthumb",
+	"type": "ommu-extension",
+	"license": "Apache-2.0",
+	"support": {
+		"issues": "https://github.com/ommu/phpthumb/issues",
+		"wiki": "https://github.com/ommu/phpthumb/wiki",
+		"source": "https://github.com/ommu/phpthumb"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ommu/phpthumb.git"
+	},
+	"authors": [
+		{
             "name": "Ian Selby",
-            "email": "ian@gen-x-design.com"
-        }
-    ],
-    "minimum-stability": "dev"
+            "email": "ian@gen-x-design.com",
+			"homepage": "http://phpthumb.gxdlabs.com",
+			"role": "Creator"
+		},
+		{
+			"name": "Putra Sudaryanto",
+			"email": "putra@sudaryanto.id",
+			"homepage": "https://putra.sudaryanto.id",
+			"role": "Modifier"
+		}
+	],
+	"require": {
+		"php": ">=5.3.2",
+		"oomphinc/composer-installers-extender": "^1.0"
+	}
 }
