@@ -1,6 +1,6 @@
 {
 	"name": "ommu/phpthumb",
-	"description": "Google Analytic PHP Interface for Ommu Platform",
+	"description": "Thumbnail lib from http://phpthumb.gxdlabs.com/",
 	"keywords": [
 		"extension",
 		"phpthumb",
