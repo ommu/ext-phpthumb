@@ -1,24 +1,23 @@
 {
-	"name": "ommu/phpthumb",
+	"name": "ommu/ext-phpthumb",
 	"description": "Thumbnail lib from http://phpthumb.gxdlabs.com/",
 	"keywords": [
 		"extension",
 		"phpthumb",
 		"ommu",
-		"platform",
 		"ommu platform"
 	],
-	"homepage": "https://github.com/ommu/phpthumb",
+	"homepage": "https://github.com/ommu/ext-phpthumb",
 	"type": "ommu-extension",
 	"license": "Apache-2.0",
 	"support": {
-		"issues": "https://github.com/ommu/phpthumb/issues",
-		"wiki": "https://github.com/ommu/phpthumb/wiki",
-		"source": "https://github.com/ommu/phpthumb"
+		"issues": "https://github.com/ommu/ext-phpthumb/issues",
+		"wiki": "https://github.com/ommu/ext-phpthumb/wiki",
+		"source": "https://github.com/ommu/ext-phpthumb"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ommu/phpthumb.git"
+		"url": "https://github.com/ommu/ext-phpthumb.git"
 	},
 	"authors": [
 		{
