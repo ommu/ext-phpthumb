@@ -5,7 +5,7 @@
 		"extension",
 		"phpthumb",
 		"ommu",
-		"ommu platform"
+		"ommu-platform"
 	],
 	"homepage": "https://github.com/ommu/ext-phpthumb",
 	"type": "ommu-extension",
